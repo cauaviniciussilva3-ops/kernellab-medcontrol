@@ -31,8 +31,9 @@ Para validar a integridade dos módulos do KernelLab:
 
 pytest tests/
 
-# Estrutura do Projeto e Módulos
-'''
+## 📁 Estrutura do Projeto e Módulos
+
+```text
 kernellab-medcontrol/
 ├── data/
 │   └── processes.json          # Tabela de dados dos processos da MedControl (P1 a P6)
@@ -46,6 +47,7 @@ kernellab-medcontrol/
 │   ├── __init__.py             # Identificador de pacote Python para testes
 │   └── test_kernellab.py       # Testes unitários do simulador
 └── README.md                   # Documentação detalhada e relatório completo do projeto
+```
 
 
 # RELATÓRIO TÉCNICO DE RESULTADOS E ANÁLISE
