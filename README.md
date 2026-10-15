@@ -57,70 +57,70 @@ pytest tests/
 ## Formato dos Dados de Entrada (data/processes.json)
 Os processos da MedControl são definidos em um arquivo JSON contendo:
 
-id: Identificador único do processo (ex.: P1 a P6).
-func: Descrição da tarefa hospitalar.
-arrival: Tempo de chegada do processo na fila de prontos.
-burst: Tempo total de execução necessário na CPU.
-priority: Nível de prioridade (menor número = maior prioridade).
+- id: Identificador único do processo (ex.: P1 a P6).
+- func: Descrição da tarefa hospitalar.
+- arrival: Tempo de chegada do processo na fila de prontos.
+- burst: Tempo total de execução necessário na CPU.
+- priority: Nível de prioridade (menor número = maior prioridade).
 
 # Exemplos de Uso e Saída Esperada
 Ao executar python src/main.py, o terminal exibe:
 
-Gráficos de Gantt e Métricas da CPU: Demostrando que no algoritmo de Prioridade Preemptiva, o processo P4 (Alarme Crítico) interrompe a CPU no instante $t=3$ e é atendido imediatamente (Espera = 0 u.t.).
-Contagem de Páginas: Demonstrando que o algoritmo LRU obtém menos falhas de página (10 Page Faults) em comparação ao FIFO (12 Page Faults).
-Validação de Segurança: Bloqueio de acessos não autorizados ([ACESSO NEGADO]) e sincronização por Mutex e Semáforo.
+- Gráficos de Gantt e Métricas da CPU: Demostrando que no algoritmo de Prioridade Preemptiva, o processo P4 (Alarme Crítico) interrompe a CPU no instante $t=3$ e é atendido imediatamente (Espera = 0 u.t.).
+- Contagem de Páginas: Demonstrando que o algoritmo LRU obtém menos falhas de página (10 Page Faults) em comparação ao FIFO (12 Page Faults).
+- Validação de Segurança: Bloqueio de acessos não autorizados ([ACESSO NEGADO]) e sincronização por Mutex e Semáforo.
 
 ## RELATÓRIO TÉCNICO E MÉTRICAS COMPARATIVAS
 1. Escalonamento de CPU
 Algoritmo: FCFS
 
-Tempo Médio de Espera (TME): 13.67 u.t.
-Tempo Médio de Retorno (TMR): 20.50 u.t.
-Tempo Médio de Resposta (TMResp): 13.67 u.t.
-Trocas de Contexto: 5
-Atendimento ao Alarme (P4): Início no tempo t=21 (Crítico)
+- Tempo Médio de Espera (TME): 13.67 u.t.
+- Tempo Médio de Retorno (TMR): 20.50 u.t.
+- Tempo Médio de Resposta (TMResp): 13.67 u.t.
+- Trocas de Contexto: 5
+- Atendimento ao Alarme (P4): Início no tempo t=21 (Crítico)
 
 Algoritmo: SJF (Não-Preemptivo)
 
-Tempo Médio de Espera (TME): 10.67 u.t.
-Tempo Médio de Retorno (TMR): 17.50 u.t.
-Tempo Médio de Resposta (TMResp): 10.67 u.t.
-Trocas de Contexto: 5
-Atendimento ao Alarme (P4): Início no tempo t=8 (Atrasado)
+- Tempo Médio de Espera (TME): 10.67 u.t.
+- Tempo Médio de Retorno (TMR): 17.50 u.t.
+- Tempo Médio de Resposta (TMResp): 10.67 u.t.
+- Trocas de Contexto: 5
+- Atendimento ao Alarme (P4): Início no tempo t=8 (Atrasado)
 
 Algoritmo: Round Robin (q=3)
 
-Tempo Médio de Espera (TME): 18.00 u.t.
-Tempo Médio de Retorno (TMR): 24.83 u.t.
-Tempo Médio de Resposta (TMResp): 5.33 u.t.
-Trocas de Contexto: 13
-Atendimento ao Alarme (P4): Início no tempo t=9 (Inaceitável)
+- Tempo Médio de Espera (TME): 18.00 u.t.
+- Tempo Médio de Retorno (TMR): 24.83 u.t.
+- Tempo Médio de Resposta (TMResp): 5.33 u.t.
+- Trocas de Contexto: 13
+- Atendimento ao Alarme (P4): Início no tempo t=9 (Inaceitável)
 
 Algoritmo: Prioridade Preemptiva
 
-Tempo Médio de Espera (TME): 10.17 u.t.
-Tempo Médio de Retorno (TMR): 17.00 u.t.
-Tempo Médio de Resposta (TMResp): 9.83 u.t.
-Trocas de Contexto: 6
+- Tempo Médio de Espera (TME): 10.17 u.t.
+- Tempo Médio de Retorno (TMR): 17.00 u.t.
+- Tempo Médio de Resposta (TMResp): 9.83 u.t.
+- Trocas de Contexto: 6
+- Atendimento ao Alarme (P4): Início no tempo t=3 (Imediato - Espera 0 u.t.)
 
-Atendimento ao Alarme (P4): Início no tempo t=3 (Imediato - Espera 0 u.t.)
 2. Memória Virtual (Sequência de 17 Referências, 4 Frames)
 
-FIFO: 12 Page Faults (70.59% de faltas)
-LRU: 10 Page Faults (58.82% de faltas)
-Optimal: 7 Page Faults (41.18% de faltas)
+- FIFO: 12 Page Faults (70.59% de faltas)
+- LRU: 10 Page Faults (58.82% de faltas)
+- Optimal: 7 Page Faults (41.18% de faltas)
 
 ⚠️ Limitações do Simulador e Possíveis Melhorias
-Limitação 1 (Risco de Starvation): No algoritmo de Prioridade Preemptiva, processos com prioridade baixa (ex.: P5 - Backup) podem sofrer postergação indefinida caso ocorram sucessivas chegadas de processos de maior prioridade.
-Melhoria Propagada: Implementar a técnica de Aging (Envelhecimento), que aumenta gradualmente a prioridade de processos que permanecem muito tempo na fila de prontos.
-Limitação 2 (Estático): Os tempos de execução e sequências de páginas são fixos.
+- Limitação 1 (Risco de Starvation): No algoritmo de Prioridade Preemptiva, processos com prioridade baixa (ex.: P5 - Backup) podem sofrer postergação indefinida caso ocorram sucessivas chegadas de processos de maior prioridade.
+- Melhoria Propagada: Implementar a técnica de Aging (Envelhecimento), que aumenta gradualmente a prioridade de processos que permanecem muito tempo na fila de prontos.
+- Limitação 2 (Estático): Os tempos de execução e sequências de páginas são fixos.
 Melhoria Propagada: Integrar geradores dinâmicos de carga em tempo real.
 
 # Referências Bibliográficas e Fontes de Pesquisa
 
-SILBERSCHATZ, Abraham; GALVIN, Peter Baer; GAGNE, Greg. Sistemas Operacionais com Java. 9. ed. Rio de Janeiro: LTC, 2015.
-TANENBAUM, Andrew S.; BOS, Herbert. Sistemas Operacionais Modernos. 4. ed. São Paulo: Pearson Education do Brasil, 2016.
-STALLINGS, William. Operating Systems: Internals and Design Principles. 9th ed. Pearson, 2018.
+- SILBERSCHATZ, Abraham; GALVIN, Peter Baer; GAGNE, Greg. Sistemas Operacionais com Java. 9. ed. Rio de Janeiro: LTC, 2015.
+- TANENBAUM, Andrew S.; BOS, Herbert. Sistemas Operacionais Modernos. 4. ed. São Paulo: Pearson Education do Brasil, 2016.
+- STALLINGS, William. Operating Systems: Internals and Design Principles. 9th ed. Pearson, 2018.
 
 ---
 
