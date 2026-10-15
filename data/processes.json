@@ -1,0 +1,56 @@
+[
+  {
+    "id": "P1",
+    "function": "Monitoramento cardíaco",
+    "arrival": 0,
+    "burst": 8,
+    "priority": 1,
+    "memory": 120,
+    "device": "Rede"
+  },
+  {
+    "id": "P2",
+    "function": "Transmissão de telemetria",
+    "arrival": 1,
+    "burst": 4,
+    "priority": 2,
+    "memory": 80,
+    "device": "Rede"
+  },
+  {
+    "id": "P3",
+    "function": "Geração de relatórios",
+    "arrival": 2,
+    "burst": 9,
+    "priority": 4,
+    "memory": 200,
+    "device": "Disco"
+  },
+  {
+    "id": "P4",
+    "function": "Emissão de alarme crítico",
+    "arrival": 3,
+    "burst": 2,
+    "priority": 0,
+    "memory": 60,
+    "device": "Áudio e rede"
+  },
+  {
+    "id": "P5",
+    "function": "Backup do sistema",
+    "arrival": 5,
+    "burst": 12,
+    "priority": 5,
+    "memory": 300,
+    "device": "Disco"
+  },
+  {
+    "id": "P6",
+    "function": "Atualização de dados",
+    "arrival": 6,
+    "burst": 6,
+    "priority": 3,
+    "memory": 150,
+    "device": "Disco e rede"
+  }
+]
